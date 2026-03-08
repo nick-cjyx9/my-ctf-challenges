@@ -1,0 +1,15 @@
+{
+  "name": "new-year",
+  "module": "index.ts",
+  "type": "module",
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  },
+  "private": true,
+  "dependencies": {
+    "javascript-obfuscator": "^5.3.0"
+  }
+}

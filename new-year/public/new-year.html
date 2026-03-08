@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>eieieieaa</title>
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+      background: #000;
+    }
+
+    canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: -1;
+    }
+  </style>
+</head>
+
+<body>
+  <script src="./eieieieea.js"></script>
+  <canvas id="canvas"></canvas>
+  <img src="./eieieieee.png" alt="eieieieee" id="eieieieee" width="534" height="480"
+    style="transform-origin:center;-webkit-user-drag: none;will-change: transform;">
+  <audio src="./eieieieee.mp3" autoplay loop controls style="display: none;"></audio>
+</body>
+
+
+<script>
+  document.addEventListener('click', function () { document.querySelector('audio').play(); });
+  let e = window.innerWidth / 2
+  let i = window.innerHeight / 2
+  let eie = (Math.random() - 0.5) * 2
+  let ieaa = (Math.random() - 0.5) * 16
+  let eiei = Math.random() * 360
+  let eieieieaa = Math.random() * Math.PI * 5
+  let ee = (Math.random() - 0.5) * 2
+  function eiiiaiaiaeaa() {
+    const rect = eieieieee.getBoundingClientRect(); e += eie;
+    i += ieaa
+    if (e < 0 || e + rect.width > window.innerWidth) eie *= -1
+    if (i < 0 || i + rect.height > window.innerHeight) ieaa *= -1
+    eiei += ee
+    eieieieaa += ee
+    eieieieee.style.transform = `translate(${e}px, ${i}px)\nrotate(${eiei}deg)\nscale(${1 + Math.sin(eieieieaa) * 0.15})`
+    requestAnimationFrame(eiiiaiaiaeaa)
+  }
+  eiiiaiaiaeaa()
+</script>
+<script src="./eieieieee.js" defer></script>
+
+</html>
