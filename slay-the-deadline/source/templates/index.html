@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+{% block content %}
+<h1>Todos</h1>
+
+<div class="todo">
+    <h3>新建 Todo</h3>
+    <form action="/create" method="POST">
+        <input type="text" name="title" placeholder="Title" required><br>
+        <textarea name="content" placeholder="Content" required></textarea><br>
+        <button type="submit">创建</button>
+    </form>
+</div>
+
+<div class="todo-list">
+    {% for todo in todos %}
+    <div class="todo">
+        <h3><a href="/view/{{ todo.id }}">{{ todo.title }}</a></h3>
+        <p>作者: {{ todo.owner }}</p>
+        <a href="/edit/{{ todo.id }}">编辑</a>
+        <a href="/delete/{{ todo.id }}">删除</a>
+    </div>
+    {% else %}
+    <p>没有 TODO</p>
+    {% endfor %}
+</div>
+{% endblock %}

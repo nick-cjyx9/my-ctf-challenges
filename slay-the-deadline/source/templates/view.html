@@ -1,0 +1,16 @@
+{% extends "layout.html" %}
+{% block content %}
+<h1>{{ title }}</h1>
+<div class="content">
+    {{ content | safe }}
+</div>
+<p>作者: {{ todo.owner }}</p>
+
+<div class="actions">
+    <a href="/">回到主页</a>
+
+    <form action="{{ url_for('share', todo_id=todo.id) }}" method="POST" style="display: inline;">
+        <button type="submit">分享给管理员</button>
+    </form>
+</div>
+{% endblock %}

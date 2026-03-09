@@ -1,0 +1,83 @@
+//! * dynamic-leet.rx
+//! 动态 FLAG（可读带隐写）
+
+use ret2api::audit;
+use ret2api::utils;
+
+/// 隐写密钥
+const ENCRYPT_KEY = "D14x63ke5DzHbkBm";
+/// FLAG 前缀，最终 FLAG 会变成例如 flag{..} 的形式
+const PREFIX = "flag";
+/// 有意义的 FLAG 内容，根据替换相似字符实现动态隐写，例如传入 `and` 会自动生成形如 `@nD` 的内容
+const TEMPLATE = "slay_the_sipre2_is_rather_fun_";
+
+/// 检查用户提交的 FLAG 是否正确
+///
+/// * bucket: the challenge `ret2api::bucket::Bucket` object
+/// * user: { id: number, account: string, institute_id: number }
+/// * team: { id: Option<number>, name: Option<string>, institute_id: Option<number> }
+/// * submission: { id: number, user_id: number, team_id: Option<number>, challenge_id: number, content: string }
+///
+/// Returns: Result<(bool, string, Option<{peer_team: i64, reason: string}>), any>
+/// means (correct, msg, audit: { peer_team, reason }), when audit is not None, the team will be treated as cheated,
+/// and the platform will publish a event to administrators.
+///
+/// The audit message will be validate again in the platform, so don't worry about false positives.
+pub async fn check(bucket, user, team, submission) {
+  let flag = utils::Flag::parse(submission.content)?;
+  if flag.prefix() != PREFIX {
+    return Ok((false, `格式错误，答案形式为 ${PREFIX}{...}`, None))
+  }
+
+  let enc_id = if let Some(id) = team.id {
+    id
+  } else {
+    user.id
+  };
+
+  // FLAG 正确，完全匹配
+  let correct_content = audit::encode(TEMPLATE, ENCRYPT_KEY, enc_id);
+  if correct_content == flag.content() {
+    return Ok((true, "答案正确！", None));
+  }
+
+  // 提取隐写的 peer_team id
+  let res = audit::decode(TEMPLATE, ENCRYPT_KEY, flag.content());
+  let dec_id = match res {
+    Ok(id) => id,
+    // error handling
+    Err(_) => return Ok((false, "答案错误！", None))
+  };
+
+  // FLAG 错误，根据隐写内容查看是否作弊
+  if let Some(id) = team.id {
+    if dec_id != id {
+      return Ok((false, "答案错误！", Some(#{
+        peer_team: dec_id,
+        reason: `队伍 ${id}:'${team.name.unwrap()}' 提交了队伍 ${dec_id} 的答案，可能存在作弊行为`
+      })));
+    }
+  }
+
+  Ok((false, "答案错误！", None))
+}
+
+/// 在容器启动时植入环境变量
+///
+/// * bucket: the challenge `ret2api::bucket::Bucket` object
+/// * user: { id: number, account: string, institute_id: number }
+/// * team: { id: Option<number>, name: Option<string>, institute_id: Option<number> }
+///
+/// Returns: Result<#{ [key: string]: string }, any>
+pub async fn environ(bucket, user, team) {
+  let enc_id = if let Some(id) = team.id {
+    id
+  } else {
+    user.id
+  };
+  let content = audit::encode(TEMPLATE, ENCRYPT_KEY, enc_id);
+  Ok(#{
+    FLAG: utils::Flag::new().with_prefix(PREFIX).with_content(content).to_string(),
+    SECRET_KEY: "FdzYRqbfF/YMSVlo3ge*V",
+  })
+}
