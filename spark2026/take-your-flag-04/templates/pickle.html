@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="utf-8">
+  <title>我已经完全掌握了 PICKLE RCE</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: radial-gradient(circle at center, #ff0077 0%, #ffff00 50%, #4a00e0 100%);
+      font-family: "Impact", "Comic Sans MS", -apple-system, sans-serif;
+      display: grid;
+      place-items: center;
+      padding: 20px;
+    }
+
+    .card {
+      background: #fff;
+      border: 8px solid #000;
+      border-radius: 20px;
+      padding: 36px 42px;
+      width: min(94%, 720px);
+      box-shadow: 16px 18px 0 #000;
+      transform: rotate(1deg);
+    }
+
+    h2 {
+      margin-top: 0;
+      font-size: 32px;
+      color: #ff0055;
+      text-shadow: 2px 2px 0 #ffff00;
+    }
+
+    p {
+      font-family: -apple-system, sans-serif;
+      font-size: 15px;
+      font-weight: bold;
+      color: #333;
+      line-height: 1.6;
+    }
+
+    input,
+    textarea {
+      width: 100%;
+      padding: 14px;
+      border: 4px solid #000;
+      font-family: monospace;
+      font-size: 15px;
+      margin-bottom: 16px;
+      font-weight: bold;
+    }
+
+    button {
+      width: 100%;
+      padding: 16px;
+      background: #ff0055;
+      color: #ffff00;
+      border: 4px solid #000;
+      font-family: inherit;
+      font-size: 22px;
+      font-weight: 900;
+      cursor: pointer;
+      box-shadow: 4px 4px 0 #000;
+    }
+
+    button:hover {
+      background: #00ffff;
+      color: #000;
+    }
+
+    .out-box {
+      margin-top: 24px;
+      background: #000;
+      color: #00ff66;
+      padding: 16px;
+      border-radius: 8px;
+      font-family: monospace;
+      white-space: pre-wrap;
+    }
+
+    .back {
+      display: block;
+      text-align: center;
+      margin-top: 20px;
+      color: #000;
+      font-family: -apple-system, sans-serif;
+      font-weight: bold;
+      text-decoration: none;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="card">
+    <h2>💥 绝对安全的反序列化工具 💥</h2>
+    <p>
+      传统的 pickle 😯 就是用 python 语言写漏洞 👓<br />
+      好无趣 😫 好危险 😩<br />
+      而我写的这款 绝对安全的反序列化工具 🤓☝ 就是在传统的 pickle 🧐<br />
+      加入黑名单和鉴权！ 🤭 好安全 🥰<br />
+      💥💥💥要爆了💥💥💥<br />
+      安全泡菜 🎶 飞沙走石 🪨<br />
+      安全泡菜 🎶 ！？阿尔C易？！🤯<br />
+      meme Ref: https://github.com/PKU-GeekGame/geekgame-5th/tree/master/official_writeup/binary-safekernel
+    </p>
+    <form method="POST">
+      <input name="auth_key" placeholder="输入权限验证密钥..." required>
+      <textarea name="payload" rows="4" placeholder="粘贴你的 base64 pickle payload..." required></textarea>
+
+      <button>⚡ 执行绝对安全的反序列化 ⚡</button>
+    </form>
+
+    {% if output %}
+    <div class="out-box">
+      <strong>[SERVER EXECUTION RESULT]:</strong>
+      <div>{{ output }}</div>
+    </div>
+    {% endif %}
+
+    <a href="/" class="back">← 返回首页</a>
+  </div>
+</body>
+
+</html>

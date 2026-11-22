@@ -1,0 +1,10 @@
+.git
+.gitignore
+__pycache__/
+*.pyc
+*.pyo
+.devdata/
+data/
+web/node_modules/
+web/dist/
+web/.vite/

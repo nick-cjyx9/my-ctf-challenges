@@ -1,0 +1,25 @@
+services:
+  device:
+    build:
+      context: ./device
+    ports:
+      - "8004:8000"
+    environment:
+      CLOUD_ENDPOINT: "http://cloud-sync:8080"
+      # 本地开发才需要的：Docker 会把 ~/.docker/config.json 里的代理注入进容器，
+      # 不把服务名排除的话，发往 cloud-sync 的 SSRF 会被丢给外网代理后超时。
+      # （远程平台没有代理变量，不需要这个。）
+      NO_PROXY: "cloud-sync,localhost,127.0.0.1,::1"
+      no_proxy: "cloud-sync,localhost,127.0.0.1,::1"
+    depends_on:
+      - cloud-sync
+    restart: unless-stopped
+
+  cloud-sync:
+    build:
+      context: ./cloud-sync
+      args:
+        MAVEN_MIRROR: "https://maven.aliyun.com/repository/public"
+    environment:
+      FLAG: "flag{local_fake_flag_for_testing}"
+    restart: unless-stopped

@@ -1,0 +1,29 @@
+services:
+  take-your-flag-02-web:
+    build: ./
+    ports:
+      - "8001:8000"
+    environment:
+      DB_HOST: ${DB_HOST:-take-your-flag-02-db}
+      DB_NAME: chichibu_shop
+      DB_USER: ctf
+      DB_PASSWORD: ctf_password
+      FLAG: ${FLAG:-flag{fake_flag_for_local_test}}
+    depends_on:
+      take-your-flag-02-db:
+        condition: service_healthy
+    restart: unless-stopped
+
+  take-your-flag-02-db:
+    image: mysql:8.4
+    environment:
+      MYSQL_DATABASE: chichibu_shop
+      MYSQL_USER: ctf
+      MYSQL_PASSWORD: ctf_password
+      MYSQL_ROOT_PASSWORD: root_password
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-proot_password"]
+      interval: 3s
+      timeout: 3s
+      retries: 20
+    restart: unless-stopped

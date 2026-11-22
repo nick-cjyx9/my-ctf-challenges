@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>BigEcho CLOUD KTV · SHIBUYA 501 VIP</title>
+  <!-- 设置严格的 CSP 以禁止数据外带出网 -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline'; connect-src 'self';">
+  <link rel="stylesheet" href="./css/ktv.css">
+</head>
+
+<body class="is-guest">
+  <svg class="sprite" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <symbol id="i-star" viewBox="0 0 24 24">
+      <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26" />
+    </symbol>
+    <symbol id="i-play" viewBox="0 0 24 24">
+      <polygon points="7 4 20 12 7 20" />
+    </symbol>
+    <symbol id="i-pause" viewBox="0 0 24 24">
+      <rect x="6" y="4" width="4" height="16" />
+      <rect x="14" y="4" width="4" height="16" />
+    </symbol>
+    <symbol id="i-prev" viewBox="0 0 24 24">
+      <rect x="4" y="4" width="3" height="16" />
+      <polygon points="20 4 9 12 20 20" />
+    </symbol>
+    <symbol id="i-next" viewBox="0 0 24 24">
+      <polygon points="4 4 15 12 4 20" />
+      <rect x="17" y="4" width="3" height="16" />
+    </symbol>
+    <symbol id="i-lock" viewBox="0 0 24 24">
+      <path d="M8 10V7a4 4 0 0 1 8 0v3" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" />
+      <rect x="4.5" y="10" width="15" height="11" rx="2.5" fill="currentColor" />
+    </symbol>
+  </svg>
+
+  <header class="topbar">
+    <div class="brand">
+      <span class="brand-mark"><span>BigEcho</span></span>
+      <span class="brand-sub">Cloud KTV System</span>
+    </div>
+    <div class="topbar-right">
+      <div class="chip" id="room-chip"><span>SHIBUYA 501 VIP</span></div>
+      <div class="clock" id="clock">--:--</div>
+    </div>
+  </header>
+
+  <div class="shell">
+    <div class="stage">
+      <section class="now">
+        <div class="cover">
+          <span class="cover-ring"></span>
+          <svg class="cover-star" viewBox="0 0 24 24" aria-hidden="true">
+            <use href="#i-star" />
+          </svg>
+          <span class="cover-lock" aria-hidden="true">
+            <svg viewBox="0 0 24 24">
+              <use href="#i-lock" />
+            </svg>
+          </span>
+        </div>
+
+        <div class="now-body">
+          <div class="now-meta">
+            <span class="now-no">01</span>
+            <div class="now-text">
+              <h1 class="now-title" id="song-name">LOADING…</h1>
+              <p class="now-artist" id="song-artist"></p>
+            </div>
+            <div class="eq" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
+          </div>
+
+          <div class="progress">
+            <span class="time" id="time-elapsed">00:00</span>
+            <div class="track">
+              <div class="fill" id="progress-fill"></div>
+            </div>
+            <span class="time" id="time-total">03:45</span>
+          </div>
+
+          <div class="transport">
+            <button class="tbtn" id="btn-prev" type="button" aria-label="上一首" disabled>
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <use href="#i-prev" />
+              </svg>
+            </button>
+            <button class="tbtn is-main" id="btn-play" type="button" aria-label="播放/暂停" disabled>
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <use href="#i-pause" />
+              </svg>
+            </button>
+            <button class="tbtn" id="btn-next" type="button" aria-label="下一首" disabled>
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <use href="#i-next" />
+              </svg>
+            </button>
+
+            <div class="modes">
+              <button class="mode is-on" type="button" disabled>原唱</button>
+              <button class="mode" type="button" disabled>伴唱</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div class="ticker" id="status-bar">
+        <span class="ticker-dot"></span>
+        <span>包厢点歌系统已就绪</span>
+      </div>
+
+      <section class="lower">
+        <section class="panel">
+          <div class="panel-head">
+            <span class="panel-tag"><span>歌单</span></span>
+            <span class="panel-count" id="queue-count">0 首</span>
+          </div>
+          <div class="tabs">
+            <button class="tab" type="button" data-view="queue">已点歌曲</button>
+            <button class="tab is-on" type="button" data-view="hot">热歌榜</button>
+          </div>
+          <ul class="song-list" id="song-list"></ul>
+        </section>
+
+        <section class="panel">
+          <div class="panel-head">
+            <span class="panel-tag is-cyan"><span>公屏弹幕</span></span>
+            <span class="live"><i></i>LIVE</span>
+          </div>
+          <div class="bulletin-list" id="danmu-screen"></div>
+          <form class="bulletin-send" id="danmu-form" hidden>
+            <input id="danmu-input" type="text" maxlength="100" autocomplete="off" aria-label="弹幕内容"
+              placeholder="发送弹幕…">
+            <button type="submit">发送</button>
+          </form>
+          <p class="bulletin-locked" id="danmu-locked">请扫描大屏的二维码认证后发言</p>
+        </section>
+      </section>
+    </div>
+  </div>
+
+  <script type="module" src="./js/main.js"></script>
+</body>
+
+</html>

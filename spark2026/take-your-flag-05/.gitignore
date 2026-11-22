@@ -1,0 +1,9 @@
+frontend/node_modules
+frontend/dist
+
+# 题解与选手包不入库
+handout.zip
+exp/
+
+# TS 增量构建产物
+*.tsbuildinfo

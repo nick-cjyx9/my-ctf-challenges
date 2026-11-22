@@ -1,0 +1,6 @@
+services:
+  take-your-flag-03:
+    build: .
+    ports:
+      - "8002:8000"
+    restart: unless-stopped

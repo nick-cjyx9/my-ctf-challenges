@@ -1,0 +1,16 @@
+{
+  "name": "rina-chan-board",
+  "type": "module",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "cookie-parser": "^1.4.7",
+    "ejs": "^6.0.1",
+    "express": "^5.2.1",
+    "puppeteer": "^25.4.0"
+  },
+  "allowScripts": {
+    "puppeteer@25.4.0": true
+  }
+}

@@ -1,0 +1,9 @@
+services:
+  rina-board:
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      PASSWORD: fake_password_for_local_test
+    init: true
+    restart: unless-stopped

@@ -1,0 +1,35 @@
+{
+  "name": "tbd-mp3-simulator",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "vite",
+    "build": "vue-tsc && vite build",
+    "preview": "vite preview"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devEngines": {
+    "packageManager": {
+      "name": "pnpm",
+      "version": "11.24.0",
+      "onFail": "download"
+    }
+  },
+  "packageManager": "pnpm@11.24.0",
+  "type": "module",
+  "dependencies": {
+    "@vueuse/core": "^14.4.0",
+    "vue": "^3.5.42"
+  },
+  "devDependencies": {
+    "@iconify-json/lucide": "^1.2.132",
+    "@vitejs/plugin-vue": "^6.0.9",
+    "typescript": "^5.7.3",
+    "unocss": "^66.10.4",
+    "vite": "^8.3.0",
+    "vue-tsc": "^3.3.11"
+  }
+}

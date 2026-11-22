@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>编辑表情 · 璃奈板工坊</title>
+  <link rel="stylesheet" href="/app.css" />
+</head>
+
+<body>
+  <header class="topbar">
+    <a class="brand" href="/">A.L.A.N. 的璃奈板工坊</a>
+    <a href="/" class="link-button">返回首页</a>
+  </header>
+  <main class="editor-layout">
+    <section class="editor-stage">
+      <div class="board-wrap">
+        <div id="pixel-grid" class="pixel-grid" aria-label="像素编辑区"></div>
+        <img src="/frame_lite.png" class="board-frame" alt="" />
+      </div>
+    </section>
+    <aside class="control-panel">
+      <label>表情名称<input id="name" maxlength="40" /></label>
+      <label>颜色<input id="color-picker" type="color" /><input id="color" maxlength="8192" /></label>
+      <div class="tool-row">
+        <button id="invert">反色</button>
+        <button id="clear">清空</button>
+      </div>
+      <button id="share" class="primary">生成分享链接</button>
+      <div id="share-box" class="share-box" hidden>
+        <input id="share-url" readonly />
+        <button id="copy">复制</button>
+      </div>
+    </aside>
+  </main>
+  <script>
+    window.INITIAL_EXPRESSION = <%- initial %>
+  </script>
+  <script src="/editor.js"></script>
+</body>
+
+</html>

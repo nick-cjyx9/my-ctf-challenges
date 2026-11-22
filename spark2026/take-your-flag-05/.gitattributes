@@ -1,0 +1,2 @@
+# Windows 上 autocrlf 会把脚本检出成 CRLF，nginx 容器会起不来
+*.sh text eol=lf

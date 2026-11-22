@@ -1,0 +1,6 @@
+services:
+  take-your-flag-04:
+    build: .
+    ports:
+      - "8003:8000"
+    restart: unless-stopped

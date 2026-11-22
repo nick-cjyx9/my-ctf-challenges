@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>登录 · 璃奈板工坊</title>
+  <link rel="stylesheet" href="/app.css">
+</head>
+
+<body class="center-page">
+  <main class="login-card">
+    <h2>A.L.A.N. 的璃奈板工坊</h2>
+    <p class="notice">访客请使用 guest/guest 登录</p>
+    <% if (error) { %>
+      <p class="error">
+        <%= error %>
+      </p>
+      <% } %>
+        <form method="post" class="stack">
+          <label>用户名<input name="username" maxlength="32" required autocomplete="username"></label>
+          <label>密码<input name="password" type="password" maxlength="64" required
+              autocomplete="current-password"></label>
+          <button class="primary">登录</button>
+        </form>
+  </main>
+</body>
+
+</html>

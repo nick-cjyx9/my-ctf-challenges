@@ -1,0 +1,339 @@
+<!doctype html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>★☆ 我已经完全掌握了 Python 🐍🐍🐍 ☆★</title>
+  <style>
+    @keyframes rainbow-text {
+      0% {
+        filter: hue-rotate(0deg);
+      }
+
+      100% {
+        filter: hue-rotate(360deg);
+      }
+    }
+
+    @keyframes spin-cow {
+      0% {
+        transform: rotate(0deg) scale(1);
+      }
+
+      50% {
+        transform: rotate(180deg) scale(1.2);
+      }
+
+      100% {
+        transform: rotate(360deg) scale(1);
+      }
+    }
+
+    @keyframes float-badge {
+
+      0%,
+      100% {
+        transform: translateY(0px) rotate(-8deg);
+      }
+
+      50% {
+        transform: translateY(-20px) rotate(8deg);
+      }
+    }
+
+    @keyframes marquee-flash {
+      0% {
+        background: #ff0055;
+        color: #fff;
+      }
+
+      33% {
+        background: #ffff00;
+        color: #000;
+      }
+
+      66% {
+        background: #00ffff;
+        color: #000;
+      }
+
+      100% {
+        background: #ff0055;
+        color: #fff;
+      }
+    }
+
+    @keyframes pulse-btn {
+
+      0%,
+      100% {
+        transform: scale(1) rotate(-1deg);
+      }
+
+      50% {
+        transform: scale(1.04) rotate(1deg);
+      }
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: radial-gradient(circle at center,
+          #ff00a0 0%,
+          #ffff00 35%,
+          #ff0055 75%,
+          #4a00e0 100%);
+      font-family:
+        "Impact", "Comic Sans MS", "Arial Black", "SimHei", "Microsoft YaHei",
+        sans-serif;
+      overflow-x: hidden;
+      cursor: crosshair;
+      user-select: none;
+    }
+
+    .banner-marquee {
+      font-size: 22px;
+      font-weight: 900;
+      padding: 10px 0;
+      text-shadow: 2px 2px 0 #fff;
+      animation: marquee-flash 1s infinite;
+      border-bottom: 6px dashed #000;
+      border-top: 6px dashed #000;
+      letter-spacing: 0.1em;
+    }
+
+    .main-canvas {
+      max-width: 1100px;
+      margin: 20px auto;
+      padding: 20px;
+      position: relative;
+      text-align: center;
+    }
+
+    .bull-silhouette {
+      position: absolute;
+      left: 0;
+      top: -30%;
+      width: 500px;
+      opacity: 0.88;
+      z-index: 1;
+      filter: drop-shadow(10px 10px 0 #ffff00);
+      pointer-events: none;
+      animation: spin-cow 8s linear infinite;
+    }
+
+    .wordart-container {
+      margin: 40px 0 30px;
+      position: relative;
+      z-index: 5;
+    }
+
+    .wordart-top {
+      font-size: clamp(40px, 7vw, 84px);
+      font-weight: 900;
+      color: #00ffff;
+      -webkit-text-stroke: 4px #000;
+      text-shadow:
+        8px 8px 0px #ff0000,
+        16px 16px 0px #ffff00;
+      transform: skewY(-5deg) rotate(-2deg);
+      display: inline-block;
+      animation: rainbow-text 2.5s linear infinite;
+    }
+
+    .wordart-bottom {
+      font-size: clamp(52px, 9vw, 110px);
+      font-weight: 900;
+      color: #ffff00;
+      -webkit-text-stroke: 5px #000;
+      text-shadow:
+        10px 10px 0px #ff0055,
+        20px 20px 0px #000;
+      transform: skewY(3deg) rotate(1deg);
+      display: block;
+    }
+
+    .bang-badge {
+      position: absolute;
+      padding: 8px 18px;
+      font-size: 26px;
+      font-weight: 900;
+      border: 4px solid #000;
+      box-shadow: 6px 6px 0 #000;
+      z-index: 6;
+      animation: float-badge 2s infinite ease-in-out;
+    }
+
+    .badge-1 {
+      top: 6%;
+      right: 12%;
+      background: #ffff00;
+      color: #ff0000;
+      transform: rotate(18deg);
+    }
+
+    .badge-2 {
+      bottom: 50%;
+      left: 4%;
+      background: #00ffff;
+      color: #000;
+      transform: rotate(-22deg);
+    }
+
+    .badge-3 {
+      top: 46%;
+      right: 4%;
+      background: #ff0055;
+      color: #fff;
+      transform: rotate(12deg);
+    }
+
+    .container {
+      position: absolute;
+      right: 6%;
+      top: 25%;
+      font-size: 18px;
+      line-height: 1.8;
+      color: rgba(0, 0, 0, 0.75);
+      font-style: italic;
+      font-weight: 900;
+      text-align: right;
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    .btn-showcase {
+      display: flex;
+      justify-content: center;
+      gap: 36px;
+      margin: 100px 0 40px;
+      position: relative;
+      z-index: 20;
+      flex-wrap: wrap;
+    }
+
+    .master-btn {
+      flex: 1;
+      min-width: 320px;
+      max-width: 460px;
+      padding: 24px 28px;
+      border: 6px solid #000;
+      border-radius: 18px;
+      text-decoration: none;
+      color: #000;
+      background: #fff;
+      box-shadow: 12px 14px 0 #000;
+      transition: all 0.15s ease;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      position: relative;
+      overflow: hidden;
+      animation: pulse-btn 3s infinite ease-in-out;
+    }
+
+    .master-btn.btn-format {
+      background: linear-gradient(135deg, #00ffff, #ffffff);
+      transform: rotate(-2deg);
+    }
+
+    .master-btn.btn-pickle {
+      background: linear-gradient(135deg, #ff0077, #ffff00);
+      transform: rotate(2deg);
+      animation-delay: 1.5s;
+    }
+
+    .master-btn:hover {
+      transform: translate(-6px, -6px) scale(1.05);
+      box-shadow: 18px 20px 0 #000;
+    }
+
+    .master-btn:active {
+      transform: translate(4px, 4px);
+      box-shadow: 4px 4px 0 #000;
+    }
+
+    .btn-title {
+      font-size: 26px;
+      font-weight: 900;
+      letter-spacing: 0.05em;
+      text-shadow: 2px 2px 0 #fff;
+    }
+
+    .btn-subtitle {
+      font-size: 15px;
+      font-weight: 800;
+      color: #333;
+      font-family: -apple-system, sans-serif;
+    }
+
+    .btn-tag {
+      background: #000;
+      color: #ffff00;
+      padding: 4px 12px;
+      font-size: 13px;
+      border-radius: 6px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="banner-marquee">
+    <marquee scrollamount="14">
+      😍😍😍 本网站由 SPARKCTF 独家赞助播出，真❤人❤考❤官❤在❤线❤出❤题，点击
+      HTTPS://SPARK.BXS.TEAM 注册即送
+      FLAG，真实活动，真人陪玩，无套路，纯爽玩！你还在等什么？？？ 😍😍😍
+    </marquee>
+  </div>
+
+  <main class="main-canvas">
+    <svg class="bull-silhouette" width="1280.000000pt" height="1040.000000pt" viewBox="0 0 1280.000000 1040.000000"
+      preserveAspectRatio="xMidYMid meet" fill="#ff0022">
+      <g transform="translate(0.000000,1040.000000) scale(0.100000,-0.100000)" stroke="none">
+        <path
+          d="M10432 10384 c-181 -48 -346 -198 -544 -494 -80 -120 -201 -361 -219 -435 -16 -69 -14 -235 4 -320 32 -150 100 -252 183 -275 67 -19 228 -7 339 25 144 42 236 94 359 202 49 44 86 56 86 27 0 -86 -277 -350 -412 -393 -51 -17 -258 -14 -353 4 -156 30 -269 106 -295 199 -11 39 -11 60 -1 113 7 36 9 68 6 71 -21 22 -183 -120 -735 -644 -298 -283 -421 -393 -595 -534 -315 -254 -604 -431 -814 -499 -35 -11 -188 -45 -341 -76 -356 -70 -490 -80 -1040 -71 -397 6 -716 22 -995 51 -240 25 -951 164 -1250 245 -254 68 -285 74 -425 73 -240 -1 -390 -57 -860 -322 -118 -67 -240 -131 -269 -142 -30 -11 -76 -36 -102 -55 -58 -42 -115 -68 -289 -129 -230 -81 -343 -148 -464 -276 -96 -100 -135 -174 -147 -283 -4 -44 -13 -324 -19 -621 -16 -864 -35 -1128 -105 -1435 -32 -142 -63 -234 -140 -410 -110 -255 -103 -242 -330 -550 -264 -355 -280 -390 -324 -690 -28 -192 -58 -283 -153 -470 -106 -210 -188 -391 -188 -417 0 -56 79 -59 217 -7 123 46 163 66 207 104 57 51 66 88 76 327 11 257 24 340 100 622 97 363 131 427 258 498 184 101 275 198 362 387 113 243 178 555 249 1196 59 522 101 779 157 950 30 89 54 126 78 117 47 -18 269 -602 336 -883 136 -573 190 -1273 113 -1465 -19 -49 -94 -106 -338 -259 -225 -142 -305 -201 -387 -289 -112 -118 -122 -150 -208 -696 -28 -176 -62 -392 -75 -480 -59 -373 -110 -504 -257 -660 -166 -177 -198 -225 -249 -369 -16 -44 -39 -91 -53 -105 -38 -42 -49 -70 -42 -113 9 -53 28 -88 81 -148 76 -85 79 -95 85 -278 5 -163 5 -164 32 -187 39 -34 94 -38 450 -32 310 4 388 13 388 40 0 28 -69 116 -258 332 -68 77 -140 165 -160 195 -37 54 -37 56 -37 155 0 84 5 113 29 185 137 400 499 955 880 1347 215 222 298 273 611 378 333 112 646 285 965 534 378 295 687 624 949 1011 113 166 214 300 236 313 8 4 23 4 33 -2 32 -17 111 -109 118 -137 13 -52 -31 -109 -286 -369 -340 -347 -452 -474 -695 -790 -39 -49 -116 -144 -173 -210 -179 -208 -271 -365 -258 -443 8 -49 42 -98 107 -152 85 -70 193 -133 534 -305 467 -236 595 -325 700 -489 59 -93 75 -160 86 -360 5 -101 15 -190 22 -204 11 -23 22 -31 67 -52 31 -14 60 -74 81 -170 12 -54 25 -103 28 -108 38 -59 468 -222 587 -222 43 0 94 44 125 108 32 69 31 175 -4 260 -64 155 -228 339 -522 585 -549 459 -776 690 -869 882 -47 97 -60 162 -60 295 -1 174 42 295 141 401 60 64 128 93 219 93 93 0 162 -33 329 -159 142 -106 196 -130 286 -123 51 4 68 11 117 47 161 118 452 223 997 360 611 152 800 184 879 146 52 -25 134 -101 171 -160 18 -27 44 -83 59 -122 35 -93 89 -153 214 -239 129 -89 181 -133 351 -299 313 -305 576 -647 684 -889 71 -159 94 -262 112 -500 24 -328 34 -429 46 -471 7 -25 30 -58 65 -93 58 -58 73 -96 94 -232 18 -119 58 -172 202 -263 119 -75 250 -131 391 -164 155 -37 427 -15 509 41 29 20 33 27 31 64 -5 110 -214 448 -358 581 -55 50 -185 139 -331 226 -83 49 -207 169 -264 254 -62 92 -144 268 -189 406 -39 122 -56 190 -137 560 -74 336 -191 756 -263 937 -60 153 -91 311 -93 480 -1 114 5 155 33 209 58 116 98 2 80 -230 -5 -75 -7 -154 -2 -176 17 -89 89 -182 167 -217 36 -15 68 -19 188 -19 212 0 247 13 372 143 113 117 157 188 174 280 6 28 21 65 34 82 35 46 46 119 46 301 l0 165 -103 0 c-109 0 -189 17 -226 48 -40 32 -68 192 -101 572 -43 493 -69 638 -166 930 -82 245 -111 301 -183 354 -61 45 -184 173 -292 306 -47 58 -89 111 -93 118 -9 16 120 -48 236 -117 223 -132 447 -351 536 -526 53 -106 67 -214 82 -665 20 -591 41 -717 128 -777 72 -48 203 -38 288 22 60 43 200 197 258 285 139 210 207 417 326 995 59 282 125 477 250 730 137 277 297 502 505 711 157 158 221 208 407 318 131 79 165 113 139 139 -21 21 -147 10 -301 -29 -273 -67 -460 -89 -638 -74 -86 7 -115 13 -168 40 -71 35 -204 154 -204 182 0 25 45 51 74 44 13 -3 47 -28 75 -56 93 -91 170 -115 361 -114 123 1 148 4 275 39 266 71 317 76 510 50 186 -25 289 -20 454 20 187 46 316 90 366 124 53 36 105 106 164 222 152 297 66 443 -359 610 -277 110 -332 143 -514 317 -154 147 -296 244 -486 335 -244 117 -466 177 -652 177 -115 0 -178 -14 -238 -54 -106 -70 -237 -22 -307 113 -41 78 -43 138 -8 249 42 133 139 278 305 457 51 55 101 113 111 130 17 27 17 31 2 47 -20 22 -75 23 -151 2z m908 -1524 c43 -23 49 -150 9 -186 -18 -16 -25 -17 -67 -5 -65 17 -152 69 -152 89 1 31 125 111 173 112 10 0 27 -5 37 -10z m995 -480 c-20 -27 -34 -54 -31 -59 3 -5 33 -11 66 -13 90 -6 143 -53 105 -92 -24 -24 -52 -20 -59 9 -7 27 -40 50 -57 39 -6 -3 -9 -20 -7 -36 8 -82 -109 -50 -126 33 -9 46 17 93 71 133 68 50 81 45 38 -14z" />
+        <path
+          d="M11435 9913 c-85 -237 -118 -298 -214 -386 -67 -61 -50 -108 46 -126 60 -12 162 2 205 27 53 31 63 70 62 242 0 134 -4 166 -25 234 -13 44 -29 81 -35 83 -7 2 -24 -30 -39 -74z" />
+      </g>
+    </svg>
+
+    <div class="bang-badge badge-1">好耶~</div>
+    <div class="bang-badge badge-2">Python Web is my passion!</div>
+    <div class="bang-badge badge-3">完!全!掌!握!</div>
+
+    <div class="container">
+      <div>人生苦短，我用 Python。</div>
+      <div>🐍 绿色蟒蛇 🐍</div>
+      <div>💥 网络安全大冲击 💥</div>
+      <div>⚡ 天地人间完全放电 ⚡</div>
+    </div>
+
+    <!-- 纯粹狂放的艺术主体 -->
+    <div class="wordart-container">
+      <div class="wordart-top">我已经完全掌握了</div>
+      <div class="wordart-bottom">PYTHON 编程</div>
+    </div>
+
+    <!-- 两个美丽且自信的学习成果按钮 -->
+    <div class="btn-showcase">
+      <a href="/format" class="master-btn btn-format">
+        <span class="btn-title">✨ 我已经完全掌握了 Format String ✨</span>
+        <span class="btn-subtitle">进入高雅问候语生成器</span>
+      </a>
+
+      <a href="/pickle" class="master-btn btn-pickle">
+        <span class="btn-title">💥 我已经完全掌握了 Pickle 安全！！！ 💥</span>
+        <span class="btn-subtitle">进入绝对安全的反序列化工具</span>
+      </a>
+    </div>
+  </main>
+</body>
+
+</html>

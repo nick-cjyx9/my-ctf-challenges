@@ -1,0 +1,9 @@
+# order-api 镜像的构建上下文是题目根目录（因为 flag 放在根上）。
+# 把与镜像无关的内容挡在上下文外。
+.git
+.gitignore
+handout.zip
+exp
+frontend
+nginx
+*.md

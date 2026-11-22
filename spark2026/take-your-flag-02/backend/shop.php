@@ -1,0 +1,312 @@
+<?php
+
+declare(strict_types=1);
+
+$dsn = sprintf('mysql:host=%s;dbname=%s;charset=utf8mb4', getenv('DB_HOST') ?: 'db', getenv('DB_NAME') ?: 'chichibu_shop');
+$pdo = new PDO($dsn, getenv('DB_USER') ?: 'ctf', getenv('DB_PASSWORD') ?: 'ctf_password');
+$keyword = $_GET['q'] ?? '';
+
+foreach (['select', 'union', 'from', 'or', 'and', '--'] as $blocked) {
+    $keyword = str_ireplace($blocked, '', $keyword);
+}
+
+$sql = "SELECT name, description, price, image FROM products WHERE name LIKE '%{$keyword}%'";
+$products = [];
+$error = '';
+try {
+    $products = $pdo->query($sql)->fetchAll(PDO::FETCH_ASSOC);
+} catch (PDOException $exception) {
+    $error = '检索失败，请调整关键词。';
+}
+?>
+<!doctype html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DrinkDrankDrunk 酒铺</title>
+  <style>
+    :root {
+      font-family: "Helvetica Neue", Arial, sans-serif;
+      color: #111;
+      background: #fdfdfd;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+    }
+
+    header {
+      padding: 22px 4vw;
+      border-bottom: 2px solid #111;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      background: #fff;
+    }
+
+    header a {
+      color: #111;
+      text-decoration: none;
+      font-weight: 800;
+      letter-spacing: .12em;
+      transition: opacity 0.2s;
+    }
+
+    header a:hover {
+      opacity: 0.7;
+    }
+
+    .bag {
+      border: 2px solid #111;
+      padding: 8px 16px;
+      font-size: 13px;
+      font-weight: bold;
+      background: #fff;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .bag:hover {
+      background: #111;
+      color: #fff;
+    }
+
+    main {
+      width: min(1180px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 54px 0 80px;
+    }
+
+    .eyebrow {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .2em;
+      color: #555;
+    }
+
+    h1 {
+      font-size: clamp(36px, 7vw, 72px);
+      line-height: 1;
+      margin: 20px 0;
+      letter-spacing: -.05em;
+      font-weight: 800;
+    }
+
+    .intro {
+      max-width: 520px;
+      line-height: 1.6;
+      font-size: 18px;
+      color: #333;
+    }
+
+    .rule {
+      width: 100%;
+      height: 2px;
+      background: #111;
+      margin: 40px 0 30px;
+    }
+
+    form {
+      display: flex;
+      gap: 0;
+      margin: 0 0 40px;
+      box-shadow: 4px 4px 0px rgba(0,0,0,1);
+      transition: transform 0.1s;
+    }
+
+    form:focus-within {
+      transform: translate(2px, 2px);
+      box-shadow: 2px 2px 0px rgba(0,0,0,1);
+    }
+
+    input {
+      flex: 1;
+      min-width: 0;
+      padding: 16px 20px;
+      border: 2px solid #111;
+      color: #111;
+      background: #fff;
+      font: inherit;
+      font-size: 16px;
+      outline: none;
+    }
+
+    button {
+      padding: 0 32px;
+      border: 2px solid #111;
+      border-left: 0;
+      color: #fff;
+      background: #111;
+      font: inherit;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    button:hover {
+      background: #333;
+    }
+
+    .notice {
+      padding: 16px;
+      border: 2px solid #e74c3c;
+      background: #fdeaea;
+      color: #c0392b;
+      font-weight: bold;
+      margin-bottom: 24px;
+    }
+
+    .products {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      border-top: 2px solid #111;
+      border-left: 2px solid #111;
+    }
+
+    article {
+      display: flex;
+      flex-direction: column;
+      border-right: 2px solid #111;
+      border-bottom: 2px solid #111;
+      background: #fff;
+      transition: background-color 0.3s ease;
+    }
+
+    article:hover {
+      background: #fafafa;
+    }
+
+    .photo {
+      height: 500px;
+      display: grid;
+      place-items: center;
+      padding: 24px;
+      background: #f4f4f4;
+      border-bottom: 2px solid #111;
+      overflow: hidden;
+    }
+
+    .photo img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    article:hover .photo img {
+      transform: scale(1.08);
+    }
+
+    .details {
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+      padding: 24px;
+    }
+
+    h2 {
+      margin: 0 0 12px;
+      font-size: 18px;
+      line-height: 1.3;
+      font-weight: 800;
+    }
+
+    .details p {
+      margin: 0;
+      font-size: 14px;
+      line-height: 1.6;
+      color: #555;
+      margin-bottom: 24px;
+    }
+
+    .price {
+      display: inline-block;
+      margin-top: auto;
+      font-size: 18px;
+      font-weight: 800;
+      letter-spacing: .05em;
+      color: #111;
+    }
+
+    .empty {
+      padding: 40px 20px;
+      border: 2px solid #111;
+      text-align: center;
+      font-weight: bold;
+      font-size: 18px;
+      background: #f9f9f9;
+    }
+
+    @media (max-width: 900px) {
+      .products {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 600px) {
+      .products {
+        grid-template-columns: 1fr;
+      }
+      .photo {
+        height: 460px;
+      }
+      header {
+        padding-inline: 16px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <a href="shop.php">CHICHIBU<br>LIQUOR STORE</a>
+    <span class="bag">BAG (0)</span>
+  </header>
+  <main>
+    <div class="eyebrow">EST. 2026 / CHICHIBU, SAITAMA</div>
+    <h1>DrinkDrankDrunk 酒铺</h1>
+    <p class="intro">今日精选来自秩父与日本各地的 12 种风味，<a href="https://bgm.tv/blog/364092">商品信息来源</a></p>
+    <div class="rule"></div>
+    <form method="get">
+      <input name="q" value="<?= htmlspecialchars($_GET['q'] ?? '', ENT_QUOTES, 'UTF-8') ?>" placeholder="搜索酒款...">
+      <button>搜索</button>
+    </form>
+    
+    <?php if ($error): ?>
+      <p class="notice"><?= $error ?></p>
+    <?php endif; ?>
+    
+    <?php if (!$products): ?>
+      <p class="empty">没有找到符合条件的酒款。</p>
+    <?php else: ?>
+      <section class="products">
+        <?php foreach ($products as $product): ?>
+        <article>
+          <div class="photo">
+            <?php if ($product['image']): ?>
+              <img src="<?= htmlspecialchars($product['image'], ENT_QUOTES, 'UTF-8') ?>" alt="<?= htmlspecialchars($product['name'], ENT_QUOTES, 'UTF-8') ?>">
+            <?php endif; ?>
+          </div>
+          <div class="details">
+            <h2><?= htmlspecialchars($product['name'], ENT_QUOTES, 'UTF-8') ?></h2>
+            <p><?= htmlspecialchars($product['description'], ENT_QUOTES, 'UTF-8') ?></p>
+            <strong class="price"><?= htmlspecialchars($product['price'], ENT_QUOTES, 'UTF-8') ?></strong>
+          </div>
+        </article>
+        <?php endforeach; ?>
+      </section>
+    <?php endif; ?>
+  </main>
+</body>
+
+</html>

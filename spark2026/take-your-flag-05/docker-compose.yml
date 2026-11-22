@@ -1,0 +1,16 @@
+services:
+  take-your-flag-05:
+    build: ./nginx
+    ports:
+      - "8004:8000"
+    environment:
+      ORDER_API_UPSTREAM: order-api:8080
+    depends_on:
+      - order-api
+    restart: unless-stopped
+
+  order-api:
+    build:
+      context: .
+      dockerfile: order-api/Dockerfile
+    restart: unless-stopped

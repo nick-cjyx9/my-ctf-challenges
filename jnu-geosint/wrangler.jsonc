@@ -1,0 +1,11 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "jnu-geosint",
+  "main": "./server.js",
+  "compatibility_date": "2026-08-03",
+  "minify": true,
+  "assets": {
+    "directory": "./public",
+    "run_worker_first": ["/config", "/submit"]
+  }
+}

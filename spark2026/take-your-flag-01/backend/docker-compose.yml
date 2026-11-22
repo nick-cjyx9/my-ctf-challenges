@@ -1,0 +1,13 @@
+services:
+  take-your-flag-01:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      TYF01_STATE: /data/state.json
+    volumes:
+      - tyf01-state:/data
+    restart: unless-stopped
+
+volumes:
+  tyf01-state:

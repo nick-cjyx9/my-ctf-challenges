@@ -1,0 +1,7 @@
+services:
+  jailing-jailing:
+    build: .
+    privileged: true
+    ports:
+      - "5000:5000"
+    restart: unless-stopped

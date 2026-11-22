@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PHANTOM DISPATCH</title>
+  <style>
+    :root {
+      --p5-red: #e60012;
+      --p5-black: #111111;
+      --p5-yellow: #ffe600;
+      --p5-white: #ffffff;
+      --p5-ink: #1d1d25;
+      --disp: "Impact", "Arial Black", "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+      --ui: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+      --mono: "Cascadia Mono", Consolas, "SF Mono", "Courier New", monospace;
+      color-scheme: light;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      padding: 34px 18px;
+      background: #c41001;
+      color: var(--p5-white);
+      font-family: var(--ui);
+      display: grid;
+      place-items: center;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* 网点 + 斜切暗带 */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background-image: radial-gradient(rgba(0, 0, 0, 0.28) 2px, transparent 2.4px);
+      background-size: 14px 14px;
+    }
+
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background: linear-gradient(104deg, transparent 58%, rgba(0, 0, 0, 0.3) 58%, rgba(0, 0, 0, 0.3) 72%, transparent 72%);
+    }
+
+    .letter-wrap {
+      position: relative;
+      z-index: 1;
+      width: min(94%, 560px);
+    }
+
+    .letter-wrap::before {
+      content: "";
+      position: absolute;
+      inset: -12px;
+      background: var(--p5-black);
+      transform: rotate(2.4deg);
+    }
+
+    .letter-card {
+      position: relative;
+      padding: 32px 40px 28px;
+      background: var(--p5-white);
+      color: var(--p5-ink);
+      border: 4px solid var(--p5-black);
+      transform: rotate(-1.4deg);
+      box-shadow: 16px 18px 0 rgba(0, 0, 0, 0.85);
+    }
+
+    .card-head {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding-bottom: 12px;
+      margin-bottom: 18px;
+      border-bottom: 4px solid var(--p5-black);
+    }
+
+    h1 {
+      margin: 0;
+      font-family: var(--disp);
+      font-size: clamp(23px, 5.6vw, 31px);
+      line-height: 1.1;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--p5-black);
+      text-shadow: 3px 3px 0 var(--p5-yellow);
+    }
+
+    .target-tag {
+      flex: none;
+      margin-left: auto;
+      padding: 4px 12px;
+      background: var(--p5-red);
+      color: var(--p5-white);
+      font-family: var(--disp);
+      font-size: 13px;
+      letter-spacing: 0.08em;
+      white-space: nowrap;
+      transform: skewX(-10deg);
+      box-shadow: 3px 3px 0 var(--p5-black);
+    }
+
+    .target-tag>span {
+      display: inline-block;
+      transform: skewX(10deg);
+    }
+
+    .desc {
+      margin: 0 0 22px;
+      font-size: 14px;
+      line-height: 1.75;
+      font-weight: 600;
+      color: #2b2b35;
+    }
+
+    .field-label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 8px;
+      font-family: var(--disp);
+      font-size: 13px;
+      letter-spacing: 0.18em;
+      color: var(--p5-black);
+    }
+
+    .field-label::before {
+      content: "";
+      width: 8px;
+      height: 8px;
+      background: var(--p5-red);
+      transform: rotate(45deg);
+    }
+
+    input {
+      display: block;
+      width: 100%;
+      margin: 0 0 18px;
+      padding: 14px 16px;
+      border: 3px solid var(--p5-black);
+      background: #f1f1f4;
+      color: var(--p5-ink);
+      font-family: var(--mono);
+      font-size: 13px;
+      font-weight: 600;
+      box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.18);
+      outline: none;
+    }
+
+    input::placeholder {
+      color: #5f5f6d;
+      opacity: 1;
+      -webkit-text-fill-color: #5f5f6d;
+    }
+
+    input:focus {
+      border-color: var(--p5-red);
+      background: #fff;
+      box-shadow: 4px 4px 0 var(--p5-red);
+    }
+
+    button {
+      display: block;
+      width: 100%;
+      padding: 15px 18px;
+      border: 0;
+      background: var(--p5-black);
+      color: var(--p5-white);
+      font-family: var(--disp);
+      font-size: clamp(16px, 3.4vw, 19px);
+      letter-spacing: 0.1em;
+      cursor: pointer;
+      transform: skewX(-6deg);
+      box-shadow: 5px 5px 0 var(--p5-red);
+      transition: background 0.15s, box-shadow 0.15s, transform 0.15s;
+    }
+
+    button:hover {
+      background: var(--p5-red);
+      box-shadow: 5px 5px 0 var(--p5-black);
+    }
+
+    button:active {
+      transform: skewX(-6deg) translate(2px, 2px);
+      box-shadow: 2px 2px 0 var(--p5-black);
+    }
+
+    input:focus-visible,
+    button:focus-visible {
+      outline: 3px solid var(--p5-yellow);
+      outline-offset: 3px;
+    }
+
+    @media (max-width: 480px) {
+      .letter-card {
+        padding: 24px 22px 22px;
+      }
+
+      .card-head {
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+
+      .target-tag {
+        margin-left: 0;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="letter-wrap">
+    <div class="letter-card">
+      <div class="card-head">
+        <h1>Phish Dispatch</h1>
+        <span class="target-tag"><span>TARGET: 芳泽霞</span></span>
+      </div>
+      <p class="desc">
+        尊敬的顾客您好，检测到您正在使用包厢，点击此链接即可免费领取【草莓草莓巨无霸巴菲兑换券】，并自动点亮包厢粉色应援灯！<br>
+      </p>
+      <form method="post">
+        <label class="field-label" for="url">钓鱼链接</label>
+        <input id="url" name="url" type="text" autocomplete="off" spellcheck="false"
+          placeholder="http://127.0.0.1:8000/ktv..." required>
+        <button type="submit">发送</button>
+      </form>
+    </div>
+  </div>
+</body>
+
+</html>

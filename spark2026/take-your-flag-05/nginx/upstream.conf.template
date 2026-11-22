@@ -1,0 +1,3 @@
+upstream order_api {
+    server ${ORDER_API_UPSTREAM};
+}

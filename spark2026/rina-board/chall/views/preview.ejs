@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <% if (isAdmin) { %><meta name="flag" content="<%= flag %>" /><% } %>
+  <title><%= expression.name %></title>
+  <style>
+    :root { --pixel-color: <%- previewColor %>; }
+    * { box-sizing: border-box; }
+    body { margin: 0; min-height: 100vh; display: grid; place-items: center; }
+    main { width: min(92vw,720px); text-align: center; }
+    h1 { margin: 0 0 16px; font-size: 24px; }
+    .shell { position: relative; aspect-ratio: 1; }
+    .grid { position: absolute; z-index: 1; left: 9.8%; top: 22%; width: 79.5%; height: 65.6%;
+      display: grid; grid-template: repeat(19,1fr)/repeat(22,1fr); }
+    .active { background: var(--pixel-color); }
+    img { position: absolute; z-index: 2; inset: 0; width: 100%; pointer-events: none; }
+  </style>
+</head>
+<body>
+  <main>
+    <h1><%= expression.name %></h1>
+    <div class="shell">
+      <div class="grid"><% for (const bit of expression.pixels) { %><i class="<%= bit === '1' ? 'active' : '' %>"></i><% } %></div>
+      <img src="/frame_lite.png" alt="">
+    </div>
+  </main>
+</body>
+</html>

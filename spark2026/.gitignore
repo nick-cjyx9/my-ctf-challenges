@@ -1,0 +1,5 @@
+*-tbd/
+experiments/
+
+# 真 flag 一律不入库（部署时挂载/注入/打进镜像）
+flag

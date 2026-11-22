@@ -1,0 +1,104 @@
+/* ==========================================================================
+   P5 暗站 · 全局样式与设计令牌
+   ========================================================================== */
+
+/* --- Latin / numeral display face (P5 uses a heavy compressed serif-ish) --- */
+@font-face {
+  font-family: 'P5 Latin';
+  src: url('./assets/font/optima-nova-black.woff2') format('woff2'),
+       url('./assets/font/optima-nova-black.ttf') format('truetype');
+  font-weight: 900;
+  font-style: normal;
+  font-display: block;
+}
+
+/* --- Chinese face: Noto Sans SC (SIL OFL) subset, pinned to wght 900 ---
+   Regenerate with: python tools/make-font.py                              */
+@font-face {
+  font-family: 'P5 CJK';
+  src: url('./assets/font/p5-cjk-heavy.woff2') format('woff2');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: block;
+}
+
+:root {
+  /* Palette */
+  --p5-black: #000000;
+  --p5-white: #ffffff;
+  --p5-red: #ff003c;
+  --p5-yellow: #dcff00;
+  --p5-cyan: #1cfeff;
+  --p5-gray: #757575;
+
+  /* Type stacks — keep 'P5 CJK' first, latin-only faces after CJK fallbacks
+     so numerals never steal CJK codepoints. */
+  --font-cjk: 'P5 CJK', 'Noto Sans SC', 'Microsoft YaHei', 'PingFang SC', 'Hiragino Sans GB', 'SimHei', sans-serif;
+  --font-title: 'P5 CJK', 'Noto Sans SC', 'Microsoft YaHei', 'PingFang SC', sans-serif;
+  --font-num: 'P5 Latin', 'P5 CJK', 'Noto Sans SC', 'Microsoft YaHei', sans-serif;
+  --font-latin: 'P5 Latin', 'Arial Black', 'Impact', sans-serif;
+
+  color: var(--p5-white);
+  background-color: var(--p5-black);
+  font-family: var(--font-cjk);
+  font-weight: 900;
+  font-synthesis: none;
+  text-rendering: geometricPrecision;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body,
+#app {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background-color: var(--p5-black);
+}
+
+button {
+  font-family: inherit;
+  font-weight: inherit;
+  outline: none;
+}
+
+/* P5 hard offset shadow (no blur — signature look) */
+.p5-hard-shadow {
+  text-shadow: 3px 3px 0 var(--p5-black);
+}
+
+.p5-cut {
+  clip-path: polygon(0% 2%, 100% 0%, 98% 100%, 1% 97%);
+}
+
+/* Scrollbar — thin acid-yellow thumb */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.08);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--p5-yellow);
+  border: 2px solid var(--p5-black);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

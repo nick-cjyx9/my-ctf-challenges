@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>A.L.A.N. 的璃奈板工坊</title>
+  <link rel="stylesheet" href="/app.css">
+</head>
+
+<body>
+  <header class="topbar">
+    <a class="brand" href="/">A.L.A.N. 的璃奈板工坊</a>
+    <nav>
+      <a href="/report">提交 URL 给 A.L.A.N. bot</a>
+      <span class="user-pill">
+        <%= user %>
+      </span>
+      <form method="post" action="/logout"><button class="link-button">退出</button></form>
+    </nav>
+  </header>
+  <main class="container">
+    <section class="hero">
+      <h2>预设表情</h2>
+      <a class="primary button" href="/editor">+ 新建表情</a>
+    </section>
+    <section>
+      <div class="preset-grid">
+        <% presets.forEach(preset=> { %>
+          <article class="preset-card">
+            <div class="card-preview">
+              <% preset.pixels.split('').forEach(bit=> { %><i class="<%= bit === '1' ? 'active' : '' %>"></i>
+                <% }) %>
+            </div>
+            <h3>
+              <%= preset.name %>
+            </h3>
+            <div class="card-actions">
+              <a href="/preview?data=<%= preset.data %>">预览</a>
+              <a class="pink" href="/editor?data=<%= preset.data %>">编辑</a>
+            </div>
+          </article>
+          <% }) %>
+      </div>
+    </section>
+  </main>
+</body>
+
+</html>
